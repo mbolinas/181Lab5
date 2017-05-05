@@ -25,8 +25,10 @@ import pkgPoker.app.MainApp;
 import pkgPokerEnum.eAction;
 import pkgPokerEnum.eGame;
 import pkgPokerBLL.Action;
+import pkgPokerBLL.Card;
 import pkgPokerBLL.GamePlay;
 import pkgPokerBLL.Player;
+import pkgPokerBLL.Rule;
 import pkgPokerBLL.Table;
 
 public class PokerTableController implements Initializable {
@@ -215,7 +217,60 @@ public class PokerTableController implements Initializable {
 	
 
 	public void Handle_GameState(GamePlay HubPokerGame) {
-
+		
+		Rule r = HubPokerGame.getRule();
+		ArrayList<Player> players = (ArrayList<Player>) HubPokerGame.getGamePlayers().values();
+		
+		
+		/*
+		 * iterate through every player, for each card in respective player's hand
+		 * for each card, find out if that card belongs to mainApp.player
+		 * if so, set visible
+		 * else, check if visible
+		 * 
+		 */
+		for(Player p : players){
+			for(Card c : HubPokerGame.getPlayerHand(p).getCardsInHand()){
+				if(mainApp.getPlayer().equals(p)){
+					if(p.getiPlayerPosition() == 1)
+						hboxP1Cards.getChildren().add(BuildImage(c.getiCardNbr()));
+					else
+						hboxP2Cards.getChildren().add(BuildImage(c.getiCardNbr()));
+					
+					
+				}
+				else{
+					if(c.isVisible()){
+						if(p.getiPlayerPosition() == 1)
+							hboxP1Cards.getChildren().add(BuildImage(c.getiCardNbr()));
+						else
+							hboxP2Cards.getChildren().add(BuildImage(c.getiCardNbr()));
+					}
+					else{
+						if(p.getiPlayerPosition() == 1)
+							hboxP1Cards.getChildren().add(BuildImage(0));
+						else
+							hboxP2Cards.getChildren().add(BuildImage(0));
+					}
+					
+					
+					
+				}
+			}
+		}
+		
+		
+		ArrayList<Card> commCards = HubPokerGame.getGameCommonHand().getCardsInHand();
+		
+		for(Card c : commCards){
+			if(c.isVisible())
+				hboxCommunity.getChildren().add(BuildImage(c.getiCardNbr()));
+			else
+				hboxCommunity.getChildren().add(BuildImage(0));
+		}
+		
+		
+		
 	}
 
 	private ImageView BuildImage(int iCardNbr) {

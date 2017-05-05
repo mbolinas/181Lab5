@@ -48,6 +48,7 @@ public class Rule implements Serializable {
 				this.hmCardDraw.put(eDrawCount.THIRD, new CardDraw(eCardCount.One,eCardDestination.Player,eCardVisibility.VisibleMe));
 				this.hmCardDraw.put(eDrawCount.FOURTH, new CardDraw(eCardCount.One,eCardDestination.Player,eCardVisibility.VisibleMe));
 				
+				
 				break;
 			}
 			case FiveStudOneJoker: {
@@ -195,6 +196,16 @@ public class Rule implements Serializable {
 			}
 			}
 		}
+		
+		
+		
+
+		public TreeMap getHmCardDraw() {
+			return hmCardDraw;
+		}
+
+
+
 
 		public int GetMaxNumberOfPlayers() {
 			return this.MaxNumberOfPlayers;

@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import pkgPokerEnum.eCardDestination;
+import pkgPokerEnum.eCardVisibility;
 import pkgPokerEnum.eDrawCount;
 import pkgPokerEnum.eGameState;
 
@@ -151,11 +152,32 @@ public class GamePlay implements Serializable {
 		GameDeck = gameDeck;
 	}
 
-	public void drawCard(Player p, eCardDestination eCardDestination)  {
+	public void drawCard(Player p, eCardDestination eCardDestination, eCardVisibility vis)  {
+		
+		Card c = getGameDeck().Draw();
 		if (eCardDestination == eCardDestination.Player) {
-			this.getPlayerHand(p).AddToCardsInHand(this.getGameDeck().Draw());
-		} else if (eCardDestination == eCardDestination.Community) {
-			this.getGameCommonHand().AddToCardsInHand(this.getGameDeck().Draw());
+			
+			if(vis.equals(eCardVisibility.VisibleEveryone)){
+				c.setVisible(true);
+			}
+			else{
+				c.setVisible(false);
+			}
+			this.getPlayerHand(p).AddToCardsInHand(c);
+			
+			
+		} 
+		else if (eCardDestination == eCardDestination.Community) {
+			
+			if(vis.equals(eCardVisibility.VisibleEveryone)){
+				c.setVisible(true);
+			}
+			else{
+				c.setVisible(false);
+			}
+			this.getGameCommonHand().AddToCardsInHand(c);
+			
+			
 		}
 	}
 

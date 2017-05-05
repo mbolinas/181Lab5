@@ -11,6 +11,7 @@ public class Card implements Comparable {
 	private eSuit eSuit;
 	private int iCardNbr;
 	private boolean Wild;
+	private boolean isVisible;
 
 	public Card() {
 	}
@@ -20,6 +21,7 @@ public class Card implements Comparable {
 		this.eSuit = eSuit;
 		this.iCardNbr = iCardNbr;
 		this.Wild = false;
+		isVisible = false;
 	}
 
 	public Card(eSuit eSuit, eRank eRank, int iCardNbr) {
@@ -27,6 +29,17 @@ public class Card implements Comparable {
 		this.eSuit = eSuit;
 		this.iCardNbr = iCardNbr;
 		this.Wild = false;
+		isVisible = false;
+	}
+	
+	
+
+	public boolean isVisible() {
+		return isVisible;
+	}
+
+	public void setVisible(boolean isVisible) {
+		this.isVisible = isVisible;
 	}
 
 	public eRank geteRank() {
